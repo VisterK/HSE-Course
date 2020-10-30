@@ -17,13 +17,13 @@ public:
 
     BigInteger operator-();
 
-    BigInteger &operator++();
-    BigInteger &operator--();
+    BigInteger& operator++();
+    BigInteger& operator--();
     BigInteger operator++(int);
     BigInteger operator--(int);
 
-    friend std::ostream &operator<<(std::ostream &os, const BigInteger &num);
-    friend std::istream &operator>>(std::istream &is, BigInteger &num);
+    friend std::ostream& operator<<(std::ostream&, const BigInteger&);
+    friend std::istream& operator>>(std::istream&, BigInteger&);
 
     friend bool operator==(const BigInteger &left, const BigInteger &right);
     friend bool operator!=(const BigInteger &left, const BigInteger &right);
@@ -32,7 +32,7 @@ public:
     friend bool operator<=(const BigInteger &left, const BigInteger &right);
     friend bool operator>=(const BigInteger &left, const BigInteger &right);
 
-    operator bool();
+    operator bool() const;
 
     friend BigInteger operator+(const BigInteger &l, const BigInteger &r);
     friend BigInteger operator-(const BigInteger &l, const BigInteger &r);
@@ -40,18 +40,17 @@ public:
     friend BigInteger operator/(const BigInteger &dividend, const BigInteger &divisor);
     friend BigInteger operator%(const BigInteger &left, const BigInteger &right);
 
-    BigInteger &operator+=(const BigInteger &num);
-    BigInteger &operator-=(const BigInteger &num);
-    BigInteger &operator*=(const BigInteger &num);
-    BigInteger &operator/=(const BigInteger &num);
-    BigInteger &operator%=(const BigInteger &num);
+    BigInteger& operator+=(const BigInteger &num);
+    BigInteger& operator-=(const BigInteger &num);
+    BigInteger& operator*=(const BigInteger &num);
+    BigInteger& operator/=(const BigInteger &num);
+    BigInteger& operator%=(const BigInteger &num);
 
     static void extend(std::vector<int> &a, int length);
     static std::vector<int> NaiveMultiplication(std::vector<int> &left, std::vector<int> &right);
     static std::vector<int> KaratsubaMultiplication(std::vector<int> &left, std::vector<int> &y);
 
 private:
-    int length;
     bool positive;
     std::vector<int> number;
 };
