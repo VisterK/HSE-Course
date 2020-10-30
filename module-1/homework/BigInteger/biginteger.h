@@ -55,4 +55,5 @@ private:
     std::vector<int> number;
 };
 
+
 #endif

@@ -255,9 +255,11 @@ BigInteger operator/(const BigInteger &dividend, const BigInteger &divisor) {
     if (dividend < divisor)
         return (0);
     BigInteger result(answer,true);
+    BigInteger divisor_sign = (divisor.positive ? 1 : -1);
+    BigInteger dividend_sign = (dividend.positive ? 1 : -1);
     for (int digit = (int) dividend.number.size() - 1; digit >= 0; --digit) {
         result.number[digit] = 9;
-        while (result * divisor > dividend  && result.number[digit] > 0) {
+        while (result * divisor * divisor_sign > dividend * dividend_sign  && result.number[digit] > 0) {
             result.number[digit]--;
         }
     }
