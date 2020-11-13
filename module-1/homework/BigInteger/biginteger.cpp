@@ -1,36 +1,28 @@
 #include <iostream>
 #include "biginteger.h"
 
+
 BigInteger::BigInteger(std::string s) {
-    for (int digit = 0; digit < (int)s.size(); digit++) {
+    for (size_t digit = 0; digit < (int)s.size(); digit++) {
         number.push_back(s[s.size() - digit - 1] - '0');
     }
 }
 
-BigInteger::BigInteger() {
-    this->positive = true;
-    std::vector<int> num(1, 0);
-    this->number = num;
+BigInteger::BigInteger(): positive(true), number(std::vector<int>(1,0)){
 }
 
 BigInteger::BigInteger(std::vector<int> &a, bool sign) {
-    for (int digit = 0; digit < (int) a.size(); ++digit) {
+    for (size_t digit = 0; digit < (int) a.size(); ++digit) {
         this->number.push_back(a[digit]);
     }
     this->positive = sign;
 }
 
 BigInteger::BigInteger(int x) {
-    if (x < 0) {
-        positive = false;
-        x = -x;
-    } else {
-        positive = true;
-    }
-    if (x == 0) {
+    positive = (x >= 0);
+    x = abs(x);
+    if(x == 0)
         number.push_back(0);
-        positive = true;
-    }
     while (x > 0) {
         number.push_back(x % 10);
         x /= 10;
@@ -39,16 +31,20 @@ BigInteger::BigInteger(int x) {
 
 std::string BigInteger::toString() {
     std::string str;
-    if (!(this->positive)) {
+    if (!this->positive) {
         str.push_back('-');
     }
-    for (int digit = this->number.size() - 1; digit >= 0; digit--) {
-        str.push_back((char) (this->number[digit] + '0'));
+    for (ssize_t digit = this->number.size() - 1; digit >= 0; digit--) {
+        str.push_back(static_cast<char>(this->number[digit] + '0'));
     }
     return str;
 }
 
 BigInteger BigInteger::operator-() {
+    if(this->number.size() == 1 && this->number[0] == 0){
+        this->positive = true;
+        return *this;
+    }
     this->positive = !this->positive;
     return *this;
 }
@@ -78,10 +74,9 @@ BigInteger BigInteger::operator--(int) {
 }
 
 std::ostream &operator<<(std::ostream &os, const BigInteger &num) {
-    if (!num.positive) {
+    if (!num.positive)
         os << "-";
-    }
-    for (int digit = 0; digit < num.number.size(); ++digit) {
+    for (size_t digit = 0; digit < num.number.size(); ++digit) {
         os << num.number[num.number.size() - digit - 1];
     }
     return os;
@@ -93,13 +88,13 @@ std::istream &operator>>(std::istream &is, BigInteger &num) {
     num.number.clear();
     if (str[0] == '-') {
         num.positive = false;
-        for (int digit = 0; digit < str.size(); digit++) {
+        for (size_t digit = 0; digit < str.size(); digit++) {
             num.number.push_back(str[str.size() - digit] - '0');
         }
     }
     else {
         num.positive = true;
-        for (int digit = 0; digit < str.size(); digit++) {
+        for (size_t digit = 0; digit < str.size(); digit++) {
             num.number.push_back(str[str.size() - digit - 1] - '0');
         }
     }
@@ -108,7 +103,7 @@ std::istream &operator>>(std::istream &is, BigInteger &num) {
 
 bool operator==(const BigInteger &left, const BigInteger &right) {
     if (left.positive == right.positive && left.number.size() == right.number.size()) {
-        for (int digit = 0; digit < left.number.size(); ++digit) {
+        for (size_t digit = 0; digit < left.number.size(); ++digit) {
             if (left.number[digit] != right.number[digit])
                 return false;
         }
@@ -135,7 +130,7 @@ bool operator>(const BigInteger &left, const BigInteger &right) {
             return true;
         if (left.number.size() < right.number.size())
             return false;
-        for (int digit = (int) left.number.size() - 1; digit >= 0; digit--) {
+        for (ssize_t digit = (int) left.number.size() - 1; digit >= 0; digit--) {
             if (left.number[digit] > right.number[digit])
                 return true;
             if (left.number[digit] < right.number[digit])
@@ -146,7 +141,7 @@ bool operator>(const BigInteger &left, const BigInteger &right) {
         return true;
     if (left.number.size() > right.number.size())
         return false;
-    for (int digit = (int) left.number.size() - 1; digit >= 0; digit--) {
+    for (ssize_t digit = (int) left.number.size() - 1; digit >= 0; digit--) {
         if (left.number[digit] < right.number[digit])
             return true;
         if (left.number[digit] > right.number[digit])
@@ -170,11 +165,17 @@ bool operator>=(const BigInteger &left, const BigInteger &right) {
 }
 
 BigInteger::operator bool() const {
-    if (this->number[0] == 0) {
-        return false;
+    return(!(this->number.size() == 0 && this->number[0] == 0));
+}
+BigInteger::operator std::string() const{
+    std::string str;
+    if (!this->positive) {
+        str.push_back('-');
     }
-    else
-        return true;
+    for (ssize_t digit = this->number.size() - 1; digit >= 0; digit--) {
+        str.push_back(static_cast<char>(this->number[digit] + '0'));
+    }
+    return str;
 }
 
 BigInteger operator+(const BigInteger &l, const BigInteger &r) {
@@ -189,7 +190,7 @@ BigInteger operator+(const BigInteger &l, const BigInteger &r) {
     else if (!right.positive)
         return left - (-right);
     int carry = 0;
-    for (int digit = 0; digit < std::max(left.number.size(), right.number.size()) || carry != 0; digit++) {
+    for (size_t digit = 0; digit < std::max(left.number.size(), right.number.size()) || carry != 0; digit++) {
         if (digit == left.number.size()) {
             left.number.push_back(0);
         }
@@ -215,7 +216,7 @@ BigInteger operator-(const BigInteger &l, const BigInteger &r) {
     else if (left < right)
         return -(right - left);
     int carry = 0;
-    for (int digit = 0; digit < right.number.size() || carry; digit++) {
+    for (size_t digit = 0; digit < right.number.size() || carry; digit++) {
         left.number[digit] -= carry + (digit < right.number.size() ? right.number[digit] : 0);
         carry = (left.number[digit] < 0);
         if (carry == 1) {
@@ -231,14 +232,14 @@ BigInteger operator-(const BigInteger &l, const BigInteger &r) {
 }
 
 BigInteger operator*(const BigInteger &left, const BigInteger &right) {
-    int max_size = (left.number.size() >= right.number.size() ? left.number.size() : right.number.size());
+    size_t max_size = (left.number.size() >= right.number.size() ? left.number.size() : right.number.size());
     std::vector<int> a = left.number;
     std::vector<int> b = right.number;
     BigInteger::extend(a, max_size);
     BigInteger::extend(b, max_size);
     std::vector<int> res = BigInteger::KaratsubaMultiplication(a, b);
     res.push_back(0);
-    for (int i = 0; i < res.size() - 1; ++i) {
+    for (size_t i = 0; i < res.size() - 1; ++i) {
         res[i + 1] += res[i] / 10;
         res[i] %= 10;
     }
@@ -252,12 +253,12 @@ BigInteger operator*(const BigInteger &left, const BigInteger &right) {
 BigInteger operator/(const BigInteger &dividend, const BigInteger &divisor) {
     std::vector<int> answer(dividend.number.size());
     bool sign = (dividend.positive == divisor.positive);
-    if (dividend < divisor)
-        return (0);
-    BigInteger result(answer,true);
     BigInteger divisor_sign = (divisor.positive ? 1 : -1);
     BigInteger dividend_sign = (dividend.positive ? 1 : -1);
-    for (int digit = (int) dividend.number.size() - 1; digit >= 0; --digit) {
+    if (dividend * dividend_sign < divisor * divisor_sign)
+        return (0);
+    BigInteger result(answer,true);
+    for (ssize_t digit = (int) dividend.number.size() - 1; digit >= 0; --digit) {
         result.number[digit] = 9;
         while (result * divisor * divisor_sign > dividend * dividend_sign  && result.number[digit] > 0) {
             result.number[digit]--;
@@ -310,7 +311,7 @@ void BigInteger::extend(std::vector<int> &a, int length) {
 }
 
 std::vector<int> BigInteger::NaiveMultiplication(std::vector<int> &left, std::vector<int> &right) {
-    int lenght = (left.size() >= right.size() ? left.size() : right.size());
+    size_t lenght = (left.size() >= right.size() ? left.size() : right.size());
     lenght += lenght % 2;
     while (left.size() < lenght)
         left.push_back(0);
@@ -319,8 +320,8 @@ std::vector<int> BigInteger::NaiveMultiplication(std::vector<int> &left, std::ve
     }
     std::vector<int> result(2 * lenght);
 
-    for (int i = 0; i < lenght; ++i) {
-        for (int j = 0; j < lenght; ++j) {
+    for (size_t i = 0; i < lenght; ++i) {
+        for (size_t j = 0; j < lenght; ++j) {
             result[i + j] += left[i] * right[j];
         }
     }
@@ -328,7 +329,7 @@ std::vector<int> BigInteger::NaiveMultiplication(std::vector<int> &left, std::ve
 }
 
 std::vector<int> BigInteger::KaratsubaMultiplication(std::vector<int> &left, std::vector<int> &right) {
-    int lenght = (left.size() >= right.size() ? left.size() : right.size());
+    size_t lenght = (left.size() >= right.size() ? left.size() : right.size());
     lenght += lenght % 2;
     while (left.size() < lenght)
         left.push_back(0);
@@ -352,26 +353,26 @@ std::vector<int> BigInteger::KaratsubaMultiplication(std::vector<int> &left, std
     std::vector<int> left_lr(middle);
     std::vector<int> right_rl(middle);
 
-    for (int i = 0; i < middle; ++i) {
+    for (size_t i = 0; i < middle; ++i) {
         left_lr[i] = left_l[i] + left_r[i];
         right_rl[i] = right_l[i] + right_r[i];
     }
 
     std::vector<int> intermediate_third = KaratsubaMultiplication(left_lr, right_rl);
 
-    for (int i = 0; i < lenght; ++i) {
+    for (size_t i = 0; i < lenght; ++i) {
         intermediate_third[i] -= intermediate_second[i] + intermediate_first[i];
     }
 
-    for (int i = 0; i < lenght; ++i) {
+    for (size_t i = 0; i < lenght; ++i) {
         result[i] = intermediate_second[i];
     }
 
-    for (int i = lenght; i < 2 * lenght; ++i) {
+    for (size_t i = lenght; i < 2 * lenght; ++i) {
         result[i] = intermediate_first[i - lenght];
     }
 
-    for (int i = middle; i < lenght + middle; ++i) {
+    for (size_t i = middle; i < lenght + middle; ++i) {
         result[i] += intermediate_third[i - middle];
     }
     return result;

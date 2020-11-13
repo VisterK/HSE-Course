@@ -13,7 +13,6 @@ public:
     BigInteger();
     std::string toString();
     BigInteger(int x);
-    BigInteger(std::vector<int> &a, bool sign);
 
     BigInteger operator-();
 
@@ -33,6 +32,7 @@ public:
     friend bool operator>=(const BigInteger &left, const BigInteger &right);
 
     operator bool() const;
+    operator std::string() const;
 
     friend BigInteger operator+(const BigInteger &l, const BigInteger &r);
     friend BigInteger operator-(const BigInteger &l, const BigInteger &r);
@@ -53,6 +53,9 @@ public:
 private:
     bool positive;
     std::vector<int> number;
+
+    BigInteger(std::vector<int> &a, bool sign);
+
 };
 
 
