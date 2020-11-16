@@ -43,7 +43,7 @@ std::string BigInteger::toString() {
 }
 
 BigInteger BigInteger::operator-() {
-    positive = (number.back() == 0 ? true : !positive);
+    positive = (number.back() == 0 || !positive);
     return *this;
 }
 
@@ -84,11 +84,11 @@ std::istream &operator>>(std::istream &is, BigInteger &num) {
     std::string str;
     is >> str;
     num.number.clear();
-    num.positive = (str.front() != '-');
-    size_t length = (num.positive ? str.size() : str.size() - 1);
+    size_t length = (str.front() != '-' ? str.size() : str.size() - 1);
     for (size_t digit = 0; digit < length; digit++) {
         num.number.push_back(static_cast<int>(str[str.size() - digit - 1]) - '0');
     }
+    num.positive = (num.number.back() == 0 || str.front() != '-');
     return is;
 }
 
@@ -212,8 +212,6 @@ BigInteger operator-(const BigInteger &l, const BigInteger &r) {
 }
 
 BigInteger operator*(const BigInteger &left, const BigInteger &right) {
-    if(left.number.back() == 0 || right.number.back() == 0)
-        return 0;
     size_t max_size = (left.number.size() >= right.number.size() ? left.number.size() : right.number.size());
     std::vector<int> a = left.number;
     std::vector<int> b = right.number;
