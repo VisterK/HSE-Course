@@ -3,8 +3,10 @@
 
 
 BigInteger::BigInteger(std::string s) {
-    for (size_t digit = 0; digit < (int)s.size(); digit++) {
-        number.push_back(s[s.size() - digit - 1] - '0');
+    this->positive = (s.front() != '-');
+    size_t length = (this->positive ? s.size() : s.size() - 1);
+    for (size_t digit = 0; digit < length; digit++) {
+        number.push_back(static_cast<int>(s[s.size() - digit - 1]) - '0');
     }
 }
 
@@ -12,7 +14,7 @@ BigInteger::BigInteger(): positive(true), number(std::vector<int>(1,0)){
 }
 
 BigInteger::BigInteger(std::vector<int> &a, bool sign) {
-    for (size_t digit = 0; digit < (int) a.size(); ++digit) {
+    for (size_t digit = 0; digit < a.size(); ++digit) {
         this->number.push_back(a[digit]);
     }
     this->positive = sign;
@@ -41,11 +43,7 @@ std::string BigInteger::toString() {
 }
 
 BigInteger BigInteger::operator-() {
-    if(this->number.size() == 1 && this->number[0] == 0){
-        this->positive = true;
-        return *this;
-    }
-    this->positive = !this->positive;
+    this->positive = (this->number.back() == 0 ? true : !this->positive);
     return *this;
 }
 
@@ -86,17 +84,10 @@ std::istream &operator>>(std::istream &is, BigInteger &num) {
     std::string str;
     is >> str;
     num.number.clear();
-    if (str[0] == '-') {
-        num.positive = false;
-        for (size_t digit = 0; digit < str.size(); digit++) {
-            num.number.push_back(str[str.size() - digit] - '0');
-        }
-    }
-    else {
-        num.positive = true;
-        for (size_t digit = 0; digit < str.size(); digit++) {
-            num.number.push_back(str[str.size() - digit - 1] - '0');
-        }
+    num.positive = (str[0] != '-');
+    size_t length = (num.positive ? str.size() : str.size() - 1);
+    for (size_t digit = 0; digit < length; digit++) {
+        num.number.push_back(static_cast<int>(str[str.size() - digit - 1]) - '0');
     }
     return is;
 }
@@ -165,7 +156,7 @@ bool operator>=(const BigInteger &left, const BigInteger &right) {
 }
 
 BigInteger::operator bool() const {
-    return(!(this->number.size() == 0 && this->number[0] == 0));
+    return(this->number.back() != 0);
 }
 BigInteger::operator std::string() const{
     std::string str;
