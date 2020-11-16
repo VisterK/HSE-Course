@@ -10,8 +10,7 @@ BigInteger::BigInteger(std::string s) {
     }
 }
 
-BigInteger::BigInteger(): positive(true), number(std::vector<int>(1,0)){
-}
+BigInteger::BigInteger(): positive(true), number(std::vector<int>(1,0)){}
 
 BigInteger::BigInteger(std::vector<int> &a, bool sign) {
     for (size_t digit = 0; digit < a.size(); ++digit) {
@@ -83,7 +82,7 @@ std::istream &operator>>(std::istream &is, BigInteger &num) {
     std::string str;
     is >> str;
     num.number.clear();
-    num.positive = (str[0] != '-');
+    num.positive = (str.front() != '-');
     size_t length = (num.positive ? str.size() : str.size() - 1);
     for (size_t digit = 0; digit < length; digit++) {
         num.number.push_back(static_cast<int>(str[str.size() - digit - 1]) - '0');
@@ -180,10 +179,7 @@ BigInteger operator+(const BigInteger &l, const BigInteger &r) {
         if (digit == left.number.size())
             left.number.push_back(0);
         left.number[digit] += carry + (digit < right.number.size() ? right.number[digit] : 0);
-        if (left.number[digit] >= 10)
-            carry = 1;
-        else
-            carry = 0;
+        carry = (left.number[digit] >= 10 ? 1 : 0);
         if (carry == 1)
             left.number[digit] -= 10;
     }
@@ -249,7 +245,7 @@ BigInteger operator/(const BigInteger &dividend, const BigInteger &divisor) {
     while (result.number.back() == 0 && result.number.size() > 1)
         result.number.pop_back();
     result.positive = sign;
-    return (result);
+    return result;
 }
 
 BigInteger operator%(const BigInteger &left, const BigInteger &right) {
