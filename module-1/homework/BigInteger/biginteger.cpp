@@ -226,7 +226,8 @@ BigInteger operator*(const BigInteger &left, const BigInteger &right) {
     res.back() %= 10;
     while (res.size() > 1 && res.back() == 0)
         res.pop_back();
-    BigInteger answer(res, left.positive == right.positive);
+    bool sign = (left.positive == right.positive || res.back() == 0);
+    BigInteger answer(res, sign);
     return answer;
 }
 
