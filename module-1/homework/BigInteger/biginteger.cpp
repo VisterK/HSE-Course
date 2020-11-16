@@ -8,6 +8,8 @@ BigInteger::BigInteger(std::string s) {
     for (size_t digit = 0; digit < length; digit++) {
         number.push_back(static_cast<int>(s[s.size() - digit - 1]) - '0');
     }
+    if(number.back() == 0)
+        positive = true;
 }
 
 BigInteger::BigInteger(): positive(true), number(std::vector<int>(1,0)){}
@@ -204,12 +206,14 @@ BigInteger operator-(const BigInteger &l, const BigInteger &r) {
     }
     while (left.number.back() == 0 && left.number.size() > 1)
         left.number.pop_back();
-    if (left.number[0] == 0)
+    if (left.number.back() == 0)
         left.positive = true;
     return left;
 }
 
 BigInteger operator*(const BigInteger &left, const BigInteger &right) {
+    if(left.number.back() == 0 || right.number.back() == 0)
+        return 0;
     size_t max_size = (left.number.size() >= right.number.size() ? left.number.size() : right.number.size());
     std::vector<int> a = left.number;
     std::vector<int> b = right.number;
