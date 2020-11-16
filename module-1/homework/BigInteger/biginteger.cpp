@@ -3,8 +3,8 @@
 
 
 BigInteger::BigInteger(std::string s) {
-    this->positive = (s.front() != '-');
-    size_t length = (this->positive ? s.size() : s.size() - 1);
+    positive = (s.front() != '-');
+    size_t length = (positive ? s.size() : s.size() - 1);
     for (size_t digit = 0; digit < length; digit++) {
         number.push_back(static_cast<int>(s[s.size() - digit - 1]) - '0');
     }
@@ -14,9 +14,9 @@ BigInteger::BigInteger(): positive(true), number(std::vector<int>(1,0)){}
 
 BigInteger::BigInteger(std::vector<int> &a, bool sign) {
     for (size_t digit = 0; digit < a.size(); ++digit) {
-        this->number.push_back(a[digit]);
+        number.push_back(a[digit]);
     }
-    this->positive = sign;
+    positive = sign;
 }
 
 BigInteger::BigInteger(int x) {
@@ -32,16 +32,16 @@ BigInteger::BigInteger(int x) {
 
 std::string BigInteger::toString() {
     std::string str;
-    if (!this->positive)
+    if (!positive)
         str.push_back('-');
-    for (ssize_t digit = this->number.size() - 1; digit >= 0; digit--) {
-        str.push_back(static_cast<char>(this->number[digit] + '0'));
+    for (ssize_t digit = number.size() - 1; digit >= 0; digit--) {
+        str.push_back(static_cast<char>(number[digit] + '0'));
     }
     return str;
 }
 
 BigInteger BigInteger::operator-() {
-    this->positive = (this->number.back() == 0 ? true : !this->positive);
+    positive = (number.back() == 0 ? true : !positive);
     return *this;
 }
 
@@ -151,14 +151,14 @@ bool operator>=(const BigInteger &left, const BigInteger &right) {
 }
 
 BigInteger::operator bool() const {
-    return(this->number.back() != 0);
+    return(number.back() != 0);
 }
 BigInteger::operator std::string() const{
     std::string str;
-    if (!this->positive)
+    if (!positive)
         str.push_back('-');
-    for (ssize_t digit = this->number.size() - 1; digit >= 0; digit--) {
-        str.push_back(static_cast<char>(this->number[digit] + '0'));
+    for (ssize_t digit = number.size() - 1; digit >= 0; digit--) {
+        str.push_back(static_cast<char>(number[digit] + '0'));
     }
     return str;
 }
@@ -234,7 +234,7 @@ BigInteger operator/(const BigInteger &dividend, const BigInteger &divisor) {
     BigInteger divisor_sign = (divisor.positive ? 1 : -1);
     BigInteger dividend_sign = (dividend.positive ? 1 : -1);
     if (dividend * dividend_sign < divisor * divisor_sign)
-        return (0);
+        return 0;
     BigInteger result(answer,true);
     for (ssize_t digit = (int) dividend.number.size() - 1; digit >= 0; --digit) {
         result.number[digit] = 9;
