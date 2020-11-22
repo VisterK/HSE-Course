@@ -1,7 +1,6 @@
-#pragma once
+#ifndef HIERARCHY_POINT_H
+#define HIERARCHY_POINT_H
 
-
-struct Line;
 
 struct Point{
 
@@ -10,6 +9,10 @@ struct Point{
 
     bool operator==(const Point& rhs) const;
     bool operator!=(const Point& rhs) const;
+    Point operator+(const Point& rhs) const;
+    Point operator-(const Point& rhs) const;
+    Point operator*(const double lambda) const;
 
     double x, y;
 };
+#endif

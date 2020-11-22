@@ -7,6 +7,8 @@ Line::Line(Point A_, Point B_){
     C = A_.x * B_.y - B_.x * A_.y;
 }
 
+Line::Line(double A_, double B_, double C_): A(A_), B(B_), C(C_){}
+
 bool Line::operator ==(const Line& rhs) const{
     return(A == rhs.A && B == rhs.B);
 }

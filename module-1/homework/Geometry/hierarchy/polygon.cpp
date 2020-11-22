@@ -56,7 +56,7 @@ bool Polygon::isConvex() const{
 double Polygon::perimeter() const{
     double perimeter_ = 0;
     for(size_t i = 0; i < points.size() - 1; ++i){
-        double length = extra::Distance(points[i], points[(i + 1) % verticesCount()]);
+        double length = extra::distance(points[i], points[(i + 1) % verticesCount()]);
         perimeter_ += length;
     }
     return perimeter_;
@@ -150,7 +150,7 @@ void Polygon::rotate(Point center, double angle){
     for(size_t i = 0; i < verticesCount(); ++i){
         points[i].x = (points[i].x - center.x) * cos(angle)
                 - (points[i].y - center.y) * sin(angle) + center.x;
-        points[i].x = (points[i].y - center.y) * sin(angle)
+        points[i].y = (points[i].y - center.y) * sin(angle)
                 - (points[i].x - center.x) * cos(angle) + center.y;
     }
 }
@@ -175,6 +175,9 @@ void Polygon::reflex(Line axis){
     }
 }
 
-void scale(Point center, double coefficient){
-
+void Polygon::scale(Point center, double coefficient){
+    for(size_t i = 0; i < verticesCount(); ++i){
+        points[i].x = (points[i].x - center.x) * coefficient + center.x;
+        points[i].y = (points[i].y - center.y) * coefficient + center.y;
+    }
 }

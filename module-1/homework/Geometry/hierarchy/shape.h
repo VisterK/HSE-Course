@@ -1,3 +1,6 @@
+#ifndef HIERARCHY_SHAPE_H
+#define HIERARCHY_SHAPE_H
+
 #include "line.h"
 #include "point.h"
 #include <vector>
@@ -19,3 +22,5 @@ public:
     virtual void reflex(Line axis) = 0;
     virtual void scale(Point center, double coefficient) = 0;
 };
+
+#endif

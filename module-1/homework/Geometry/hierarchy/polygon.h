@@ -1,3 +1,6 @@
+#ifndef HIERARCHY_POLYGON_H
+#define HIERARCHY_POLYGON_H
+
 #include "point.h"
 #include "shape.h"
 
@@ -30,3 +33,5 @@ public:
 protected:
     std::vector<Point> points;
 };
+
+#endif
