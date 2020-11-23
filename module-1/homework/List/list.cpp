@@ -22,18 +22,18 @@ namespace task {
 
     list::list(size_t count, const int &value) : list::list() {
         for (size_t i = 0; i < count; ++i) {
-            this->push_back(value);
+            push_back(value);
         }
     }
 
     list &list::operator=(const list& other) {
         if(this == &other)
             return *this;
-        while (!this->empty())
-            this->pop_back();
+        while (!empty())
+            pop_back();
         Node *current = other.head;
         while (current) {
-            this->push_back(current->data);
+            push_back(current->data);
             current = current->pNext;
         }
         return *this;
@@ -126,12 +126,12 @@ namespace task {
     }
 
     void list::resize(size_t count) {
-        if (count == this->size())
+        if (count == size())
             return;
-        while (count < this->size())
-            this->pop_back();
-        while (count > this->size())
-            this->push_back(int());
+        while (count < size())
+            pop_back();
+        while (count > size())
+            push_back(int());
         size_ = count;
     }
     void list::swap(list &other) {
