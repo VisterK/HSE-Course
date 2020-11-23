@@ -3,8 +3,8 @@
 
 namespace task {
 
-    list::list() : size_(0), head(nullptr), tail(nullptr) {
-    }
+    list::list() : size_(0), head(nullptr), tail(nullptr) {}
+
     list::list(const list& other){
         size_ = 0;
         head = nullptr;
@@ -15,17 +15,20 @@ namespace task {
             current = current->pNext;
         }
     }
+
     list::~list() {
         clear();
     }
 
-    list::list(size_t count, const int &value) {
+    list::list(size_t count, const int &value) : list::list() {
         for (size_t i = 0; i < count; ++i) {
             this->push_back(value);
         }
     }
 
     list &list::operator=(const list& other) {
+        if(this == &other)
+            return *this;
         while (!this->empty())
             this->pop_back();
         Node *current = other.head;
@@ -83,46 +86,42 @@ namespace task {
         Node *newNode = new Node(value);
         if (head == nullptr) {
             head = newNode;
-            tail = newNode;
         } else {
             newNode->pPrev = tail;
             tail->pNext = newNode;
-            tail = newNode;
         }
+        tail = newNode;
         size_++;
     }
     void list::pop_back() {
         Node *newTail = tail->pPrev;
-        if (newTail) {
+        if (newTail)
             newTail->pNext = nullptr;
-        }
         delete tail;
         tail = newTail;
-        if (!tail)
-            head = nullptr;
         size_--;
+        if (!size_)
+            head = nullptr;
     }
     void list::push_front(const int &value) {
         Node *newNode = new Node(value);
         if (!head) {
-            head = newNode;
             tail = newNode;
         } else {
             head->pPrev = newNode;
             newNode->pNext = head;
-            head = newNode;
         }
+        head = newNode;
         size_++;
     }
     void list::pop_front() {
         Node *newHead = head->pNext;
         delete head;
-        if (newHead) {
+        if (newHead)
             newHead->pPrev = nullptr;
-        }
         head = newHead;
         size_--;
-        if (!head)
+        if (!size_)
             tail = nullptr;
     }
 
@@ -140,8 +139,9 @@ namespace task {
         std::swap(tail, other.tail);
         std::swap(size_, other.size_);
     }
-    void list::remove(const int &value) {
+    void list::remove(const int &value_) {
         Node *current = head;
+        int value = value_;
         while(current != nullptr){
             if(current == head && current->data == value){
                 current = current->pNext;
@@ -161,13 +161,11 @@ namespace task {
             }
             else{
                 tail = current->pPrev;
-                if(current->pPrev != nullptr){
+                if(current->pPrev != nullptr)
                     current->pPrev->pNext = nullptr;
-                }
             }
             size_--;
             current = current ->pNext;
-
         }
     }
     void list::unique(){

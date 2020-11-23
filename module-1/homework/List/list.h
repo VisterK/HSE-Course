@@ -1,6 +1,3 @@
-#pragma once
-
-#include <cstddef>
 
 #ifndef LIST_H
 #define LIST_H
@@ -40,16 +37,12 @@ namespace task {
         void swap(list &other);
 
 
-        void remove(const int &value);
+        void remove(const int &value_);
         void unique();
         void sort();
 
 
     private:
-        class Node;
-
-        static Node *ListSort(Node *head_, Node *tail);
-
         class Node {
         public:
             Node *pNext;
@@ -63,15 +56,17 @@ namespace task {
             }
         };
 
-        int size_;
+        size_t size_;
+
         Node *head;
         Node *tail;
+
         void QuickSort(Node*, Node*);
         Node* Partition(Node*, Node*);
 
 
     };
 
-}  // namespace task
+}
 
-#endif // LIST_H
+#endif
