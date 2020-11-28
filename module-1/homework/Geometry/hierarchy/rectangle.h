@@ -1,8 +1,5 @@
-#ifndef HIERARCHY_RECTANGLE_H
-#define HIERARCHY_RECTANGLE_H
+#pragma once
 
-#include "point.h"
-#include "line.h"
 #include "polygon.h"
 
 class Rectangle : public Polygon{
@@ -17,5 +14,3 @@ public:
     double ratio;
 
 };
-
-#endif

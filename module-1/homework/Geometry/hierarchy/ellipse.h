@@ -1,7 +1,5 @@
-#ifndef HIERARCHY_ELLIPSE_H
-#define HIERARCHY_ELLIPSE_H
+#pragma once
 
-#include "point.h"
 #include "shape.h"
 
 class Ellipse : public Shape{
@@ -34,4 +32,3 @@ private:
     double b;
     double c;
 };
-#endif

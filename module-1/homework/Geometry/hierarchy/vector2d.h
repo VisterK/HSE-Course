@@ -1,10 +1,5 @@
-#ifndef HIERARCHY_VECTOR2D_H
-#define HIERARCHY_VECTOR2D_H
+#pragma once
 
-
-#include <cmath>
-
-#include "point.h"
 #include "line.h"
 
 struct vector2d {
@@ -21,11 +16,10 @@ struct vector2d {
     vector2d operator+(const vector2d& other) const;
 
     double getLength() const;
+
     static vector2d normal(Line p);
+    static double getAngle(vector2d& left, vector2d& right);
 
     double x;
     double y;
 };
-
-
-#endif

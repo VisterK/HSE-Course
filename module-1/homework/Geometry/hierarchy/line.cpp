@@ -17,5 +17,5 @@ bool Line::operator !=(const Line& rhs) const{
 }
 
 double Line::distToPoint(const Point point) const{
-    return (abs(A * point.x + B * point.y + C))/(sqrt(A * A + B * B));
+    return (std::fabs(A * point.x + B * point.y + C))/(sqrt(A * A + B * B));
 }

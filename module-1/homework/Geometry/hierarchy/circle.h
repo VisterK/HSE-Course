@@ -1,5 +1,4 @@
-#ifndef HIERARCHY_CIRCLE_H
-#define HIERARCHY_CIRCLE_H
+#pragma once
 
 #include "ellipse.h"
 
@@ -14,4 +13,3 @@ public:
     double r;
 
 };
-#endif

@@ -1,5 +1,4 @@
-#ifndef HIERARCHY_TRIANGLE_H
-#define HIERARCHY_TRIANGLE_H
+#pragma once
 
 #include "polygon.h"
 #include "circle.h"
@@ -14,5 +13,3 @@ public:
 
 };
 
-
-#endif

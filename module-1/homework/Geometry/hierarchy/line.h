@@ -1,11 +1,12 @@
-#ifndef HIERARCHY_LINE_H
-#define HIERARCHY_LINE_H
+#pragma once
+
 #include "point.h"
 
 struct Line{
     double A;
     double B;
     double C;
+
 
 
     Line() = default;
@@ -16,5 +17,5 @@ struct Line{
     bool operator !=(const Line& rhs) const;
 
     double distToPoint(const Point point) const;
+
 };
-#endif

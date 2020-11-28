@@ -6,6 +6,8 @@ project("Geometry")
 
 configure_file(CMakeLists.txt.in googletest-download/CMakeLists.txt)
 
+set(CMAKE_CXX_STANDARD 17)
+
 execute_process(COMMAND ${CMAKE_COMMAND} -G "${CMAKE_GENERATOR}" .
 
   RESULT_VARIABLE result

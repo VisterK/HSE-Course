@@ -1,14 +1,11 @@
 #include "rectangle.h"
-#include "extra.h"
 
 Rectangle::Rectangle(Point top_, Point bottom_, double ratio_):A(top_),C(bottom_),ratio(ratio_){
-    double diagonal = extra::distance(A,C);
-    double width = diagonal / sqrt(1 + ratio * ratio);
-    double height = sqrt(diagonal * diagonal - width * width);
-
-    Point B = A + Point(width,0);
-    Point D = C - Point(width,0);
-    points = {A,B,C,D};
+    double min_x = std::min(A.x, C.x);
+    double max_x = std::max(A.x, C.x);
+    double min_y = std::min(A.y, C.y);
+    double max_y = std::max(A.y, C.y);
+    points = {Point(max_x,min_y),Point(max_x,max_y),Point(min_x,max_y),Point(min_x,min_y)};
 }
 std::pair<Line,Line> Rectangle::diagonals(){
     Line main = Line(A,C);

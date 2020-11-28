@@ -1,8 +1,6 @@
-#ifndef HIERARCHY_SHAPE_H
-#define HIERARCHY_SHAPE_H
+#pragma once
 
 #include "line.h"
-#include "point.h"
 #include <vector>
 
 
@@ -23,4 +21,3 @@ public:
     virtual void scale(Point center, double coefficient) = 0;
 };
 
-#endif

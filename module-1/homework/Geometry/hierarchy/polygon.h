@@ -1,7 +1,5 @@
-#ifndef HIERARCHY_POLYGON_H
-#define HIERARCHY_POLYGON_H
+#pragma once
 
-#include "point.h"
 #include "shape.h"
 
 class Polygon : public Shape{
@@ -34,4 +32,3 @@ protected:
     std::vector<Point> points;
 };
 
-#endif

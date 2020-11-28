@@ -1,14 +1,11 @@
-
-
 #include "point.h"
-#include <cmath>
-#include "extra.h"
+#include "constants.h"
 
 Point::Point(double x_, double y_) : x(x_), y(y_){}
 
 
 bool Point::operator==(const Point& rhs) const{
-    if(x == rhs.x && y == rhs.y)
+    if((std::fabs(x - rhs.x) < PI) && (std::fabs(y - rhs.y) < PI))
         return true;
     return false;
 }
@@ -26,4 +23,10 @@ Point Point::operator-(const Point& rhs) const{
 
 Point Point::operator*(const double lambda) const{
     return Point(x * lambda, y * lambda);
+}
+
+double Point::distance(const Point& left, const Point& right){
+    double x_coordinate = (left.x - right.x) * (left.x - right.x);
+    double y_coordinate = (left.y - right.y) * (left.y - right.y);
+    return sqrt(x_coordinate + y_coordinate);
 }

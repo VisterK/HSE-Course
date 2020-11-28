@@ -1,5 +1,4 @@
 #include "triangle.h"
-#include "extra.h"
 
 Triangle::Triangle(Point A_, Point B_, Point C_):Polygon({A_,B_,C_}){}
 
@@ -19,7 +18,7 @@ Circle Triangle::circumscribedCircle(){
                  (B.x * B.x + B.y * B.y) * (A.x - C.x) +
                  (C.x * C.x + C.y * C.y) * (B.x - A.x)) / D;
     Point center = Point(Ux,Uy);
-    double radius = extra::distance(center,A);
+    double radius = Point::distance(center,A);
     return Circle(center, radius);
 }
 Circle Triangle::inscribedCircle(){
@@ -27,9 +26,9 @@ Circle Triangle::inscribedCircle(){
     Point B = points[1];
     Point C = points[2];
 
-    double side_a = extra::distance(B,C);
-    double side_b = extra::distance(A,C);
-    double side_c = extra::distance(A,B);
+    double side_a = Point::distance(B,C);
+    double side_b = Point::distance(A,C);
+    double side_c = Point::distance(A,B);
 
     double x_coordinate = (A.x * side_a + B.x * side_b + C.x * side_c)/
             (side_a + side_b + side_c);
