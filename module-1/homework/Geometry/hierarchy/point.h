@@ -18,6 +18,6 @@ struct Point{
 
     static double distance(const Point& left, const Point& right);
 
-
-    double x, y;
+    double x;
+    double y;
 };

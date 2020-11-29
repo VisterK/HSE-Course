@@ -28,6 +28,7 @@ public:
     void reflex(Point center) override;
     void reflex(Line axis) override;
     void scale(Point center, double coefficient) override;
+
 protected:
     std::vector<Point> points;
 };

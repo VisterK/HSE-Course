@@ -11,8 +11,8 @@ struct vector2d {
 
     double operator^(const vector2d& other) const;
     double operator*(const vector2d& other) const;
-    vector2d operator*(const double lambda) const;
 
+    vector2d operator*(const double lambda) const;
     vector2d operator+(const vector2d& other) const;
 
     double getLength() const;

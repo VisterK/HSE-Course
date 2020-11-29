@@ -28,13 +28,11 @@ double vector2d::getLength() const{
     return (sqrt(x * x + y * y));
 }
 vector2d vector2d::normal(Line p) {
-    return vector2d(p.A,p.B);
+    return vector2d(p.A, p.B);
 }
 double vector2d::getAngle(vector2d& left, vector2d& right){
-    double angle_cos = (left*right) / (left.getLength() * right.getLength());
-    angle_cos = angle_cos * PI / 180.0;
-    angle_cos = std::acos(angle_cos);
-    /*double angle = std::acos((left*right) / (left.getLength() * right.getLength()));
-    angle = angle * 180 / 3.1415926;*/
-    return angle_cos;
+    double angle = (left*right) / (left.getLength() * right.getLength());
+    angle = angle * PI / 180.0;
+    angle = std::acos(angle);
+    return angle;
 }
