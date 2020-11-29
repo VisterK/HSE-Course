@@ -8,7 +8,7 @@ Ellipse::Ellipse(Point F1_, Point F2_, double a_) : F1(F1_), F2(F2_), a(a_ / 2.0
 }
 
 std::pair<Point, Point> Ellipse::focuses() const {
-    return {F1, F2};
+    return std::make_pair(F1,F2);
 }
 
 std::pair<Line, Line> Ellipse::directrices(){
@@ -26,8 +26,7 @@ Point Ellipse::center(){
 }
 
 double Ellipse::perimeter() const{
-    double L =  4.0 * ((PI * a * b + (a - b) * (a - b))/(a + b));
-    return L;
+    return 4.0 * ((PI * a * b + (a - b) * (a - b))/(a + b));
 }
 
 double Ellipse::area() const{

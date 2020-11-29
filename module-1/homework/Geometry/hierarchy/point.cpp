@@ -1,13 +1,10 @@
 #include "point.h"
-#include "constants.h"
 
 Point::Point(double x_, double y_) : x(x_), y(y_){}
 
 
 bool Point::operator==(const Point& rhs) const{
-    if((std::fabs(x - rhs.x) < PI) && (std::fabs(y - rhs.y) < PI))
-        return true;
-    return false;
+    return((std::fabs(x - rhs.x) < PI) && (std::fabs(y - rhs.y) < PI));
 }
 
 bool Point::operator!=(const Point& rhs) const{

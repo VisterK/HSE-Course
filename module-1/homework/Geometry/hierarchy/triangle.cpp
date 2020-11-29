@@ -7,8 +7,7 @@ Circle Triangle::circumscribedCircle(){
     Point A = points[0];
     Point B = points[1];
     Point C = points[2];
-    double D = 2 *
-            (A.x * (B.y - C.y)
+    double D = 2 * (A.x * (B.y - C.y)
             + B.x * (C.y - A.y)
             + C.x * (A.y - B.y));
     double Ux = ((A.x * A.x + A.y * A.y) * (B.y -C.y) +
@@ -31,7 +30,7 @@ Circle Triangle::inscribedCircle(){
     double side_c = Point::distance(A,B);
 
     double x_coordinate = (A.x * side_a + B.x * side_b + C.x * side_c)/
-            (side_a + side_b + side_c);
+                          (side_a + side_b + side_c);
     double y_coordinate = (A.y * side_a + B.y * side_b + C.y * side_c)/
                           (side_a + side_b + side_c);
     Point center = {x_coordinate, y_coordinate};

@@ -1,5 +1,4 @@
 #include "line.h"
-#include <cmath>
 
 Line::Line(Point A_, Point B_){
     A = A_.y - B_.y;

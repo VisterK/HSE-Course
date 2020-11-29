@@ -1,5 +1,4 @@
 #include "vector2d.h"
-#include <cmath>
 
 
 vector2d::vector2d(): x(0), y(0){}
@@ -31,7 +30,7 @@ vector2d vector2d::normal(Line p) {
     return vector2d(p.A, p.B);
 }
 double vector2d::getAngle(vector2d& left, vector2d& right){
-    double angle = (left*right) / (left.getLength() * right.getLength());
+    double angle = (left * right) / (left.getLength() * right.getLength());
     angle = angle * PI / 180.0;
     angle = std::acos(angle);
     return angle;
