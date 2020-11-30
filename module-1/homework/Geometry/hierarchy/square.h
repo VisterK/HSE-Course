@@ -9,7 +9,4 @@ public:
 
     Circle circumscribedCircle();
     Circle inscribedCircle();
-
-    Point A;
-    Point C;
 };

@@ -16,6 +16,6 @@ bool Line::operator !=(const Line& rhs) const{
     return !(*this == rhs);
 }
 
-double Line::distToPoint(const Point point) const{
+double Line::distToPoint(const Point& point) const{
     return (std::fabs(A * point.x + B * point.y + C))/(sqrt(A * A + B * B));
 }

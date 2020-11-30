@@ -9,8 +9,8 @@ public:
 
     std::pair<Point, Point> focuses() const;
     std::pair<Line, Line> directrices();
-    double eccentricity();
-    Point center();
+    double eccentricity() const;
+    Point center() const;
 
     double perimeter() const override;
     double area() const override;

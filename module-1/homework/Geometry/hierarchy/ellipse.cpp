@@ -17,11 +17,11 @@ std::pair<Line, Line> Ellipse::directrices(){
     return std::make_pair(first,second);
 }
 
-double Ellipse::eccentricity(){
+double Ellipse::eccentricity() const{
     return c / a;
 }
 
-Point Ellipse::center(){
+Point Ellipse::center() const{
     return Point((F1.x + F2.x) / 2.0, (F1.y + F2.y) / 2.0);
 }
 

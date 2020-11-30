@@ -1,6 +1,6 @@
 #include "rectangle.h"
 
-Rectangle::Rectangle(Point top_, Point bottom_, double ratio_):A(top_),C(bottom_),ratio(ratio_){
+Rectangle::Rectangle(Point A_, Point C_, double ratio_):A(A_),C(C_),ratio(ratio_){
     double min_x = std::min(A.x, C.x);
     double max_x = std::max(A.x, C.x);
     double min_y = std::min(A.y, C.y);

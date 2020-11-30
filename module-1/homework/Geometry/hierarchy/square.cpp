@@ -10,4 +10,5 @@ Circle Square::inscribedCircle(){
     Point center = Point((A + C) * 0.5);
     double side = (Point::distance(A,C) / 2.0) / sqrt(2);
     Circle inscribed_circle = Circle(center,side / 2.0);
+    return inscribed_circle;
 }

@@ -11,7 +11,7 @@ struct Line{
     bool operator ==(const Line& rhs) const;
     bool operator !=(const Line& rhs) const;
 
-    double distToPoint(const Point point) const;
+    double distToPoint(const Point& point) const;
 
     double A;
     double B;

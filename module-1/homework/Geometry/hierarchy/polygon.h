@@ -9,7 +9,7 @@ public:
 
     Polygon(std::vector<Point> points_);
 
-    int verticesCount() const;
+    size_t verticesCount() const;
     std::vector<Point> getVertices() const;
     std::vector<double> getSides() const;
     std::vector<double> getAngles() const;

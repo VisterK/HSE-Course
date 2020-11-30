@@ -1,12 +1,10 @@
 #include "polygon.h"
 #include "vector2d.h"
 
-#include <iostream>
-
 Polygon::Polygon(std::vector<Point> points_) : points(std::move(points_)){}
 
 
-int Polygon::verticesCount() const{
+size_t Polygon::verticesCount() const{
     return points.size();
 }
 

@@ -14,7 +14,7 @@ struct Point{
 
     Point operator+(const Point& rhs) const;
     Point operator-(const Point& rhs) const;
-    Point operator*(const double lambda) const;
+    Point operator*(const double& lambda) const;
 
     static double distance(const Point& left, const Point& right);
 

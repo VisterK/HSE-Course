@@ -18,7 +18,7 @@ Point Point::operator-(const Point& rhs) const{
     return Point(x - rhs.x, y - rhs.y);
 }
 
-Point Point::operator*(const double lambda) const{
+Point Point::operator*(const double& lambda) const{
     return Point(x * lambda, y * lambda);
 }
 

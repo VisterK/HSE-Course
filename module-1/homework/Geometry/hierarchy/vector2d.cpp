@@ -14,7 +14,7 @@ double vector2d::operator^(const vector2d& other) const{
 double vector2d::operator*(const vector2d& other) const{
     return(x * other.x + y * other.y);
 }
-vector2d vector2d::operator*(const double lambda) const{
+vector2d vector2d::operator*(const double& lambda) const{
     return vector2d(x * lambda, y * lambda);
 }
 
