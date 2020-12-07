@@ -14,9 +14,8 @@ struct NoDuplicates<NullType>{
 template<typename Head, typename Tail>
 struct NoDuplicates<TypeList<Head,Tail>>{
 private:
-    typedef typename NoDuplicates<Tail>::NewTypeList List1;
-    typedef typename Erase<List1, Head>::NewTypeList List2;
+    typedef typename Erase<typename NoDuplicates<Tail>::NewTypeList, Head>::NewTypeList NewTail;
 public:
-    typedef TypeList<Head, List2> NewTypeList;
+    typedef TypeList<Head, NewTail> NewTypeList;
 
 };
